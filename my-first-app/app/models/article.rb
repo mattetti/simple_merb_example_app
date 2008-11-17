@@ -7,4 +7,5 @@ class Article
   property :author, String
   property :created_at, DateTime
 
+  validates_present :title
 end
