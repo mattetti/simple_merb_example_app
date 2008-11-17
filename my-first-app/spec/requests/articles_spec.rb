@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper.rb')
 given "a article exists" do
   Article.all.destroy!
   request(resource(:articles), :method => "POST", 
-    :params => { :article => { :id => nil }})
+    :params => { :article => {:title => 'intro', :author => 'Matt', :created_at => '2008-11-16 19:15:03' }})
 end
 
 describe "resource(:articles)" do
@@ -39,7 +39,7 @@ describe "resource(:articles)" do
     before(:each) do
       Article.all.destroy!
       @response = request(resource(:articles), :method => "POST", 
-        :params => { :article => { :id => nil }})
+        :params => { :article => {:title => 'intro', :author => 'Matt', :created_at => '2008-11-16 19:15:03' }})
     end
     
     it "redirects to resource(:articles)" do
@@ -106,5 +106,21 @@ describe "resource(@article)", :given => "a article exists" do
     end
   end
   
+  
+
+  describe "a failing POST" do
+    before(:each) do
+      @response = request(resource(:articles), :method => "POST", :params => { :article => { :id => nil}})
+    end
+
+    it "should re render the new action" do
+      @response.body.should include("Articles controller, new action")
+    end
+
+    it "should have an error message" do
+      @response.body.should include("Article failed to be created")
+    end
+  end
+
 end
 
