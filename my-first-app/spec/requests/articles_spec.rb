@@ -18,7 +18,7 @@ describe "resource(:articles)" do
     end
 
     it "contains a list of articles" do
-      pending
+      
       @response.should have_xpath("//ul")
     end
     
@@ -30,7 +30,7 @@ describe "resource(:articles)" do
     end
     
     it "has a list of articles" do
-      pending
+      
       @response.should have_xpath("//ul/li")
     end
   end
